@@ -1,32 +1,47 @@
 package pages;
 
+import helpers.Helper;
+import helpers.Waiter;
 import org.openqa.selenium.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 
-
+/**
+ * Класс pageObject страницы Google
+ */
 public class GooglePage {
-    private By inputField = By.id("lst-ib");
     private WebDriver driver;
+    private Integer timeout;
 
-    public GooglePage(WebDriver driver) {
+    private By inputField = By.id("lst-ib");
+
+    /**
+     * Конструктор класса
+     *
+     * @param driver  - вебдрайвер
+     * @param timeout - время ожидания
+     */
+    public GooglePage(WebDriver driver, Integer timeout) {
         this.driver = driver;
+        this.timeout = timeout;
     }
 
-    public void pasteText(String str) {
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+    /**
+     * Метод вставки текста в поисковое поле из буфера обмена
+     */
+    public void pasteTextIntoInputFieldFromClipboard() {
         WebElement element = driver.findElement(inputField);
-        StringSelection stringSelection = new StringSelection(str);
-        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        clipboard.setContents(stringSelection, null);
-        jsExecutor.executeScript("arguments[0].focus()", element);
+        Helper.focusToElement(driver, element, timeout);
         element.sendKeys(Keys.CONTROL + "v");
     }
 
-    public String getPastedText() {
-        return driver.findElement(inputField).getAttribute("value");
+    /**
+     * Метод получения текста из поискового поля
+     *
+     * @return Возвращает значение поискового поля
+     */
+    public String getInputFieldText() {
+        WebElement element = driver.findElement(inputField);
+        return Waiter.waitUntilElementVisible(driver, element, timeout).getAttribute("value");
     }
 }

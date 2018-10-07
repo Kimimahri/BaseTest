@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Test">
-    <test name="Test">
-        <parameter name="url" value="https://clipboardjs.com"/>
-        <parameter name="url2" value="https://www.google.ru/"/>
+<suite name="Clipboard">
+    <test name="Clipboard">
+        <parameter name="clipboardPageUrl" value="https://clipboardjs.com"/>
+        <parameter name="googlePageUrl" value="https://www.google.ru/"/>
         <parameter name="timeout" value="10"/>
         <parameter name="driverPath" value="src/resources/chromedriver.exe"/>
-        <parameter name="str" value="Default Message"/>
+        <parameter name="text" value="Default Message"/>
         <classes>
             <class name="ClipboardTest"/>
         </classes>
