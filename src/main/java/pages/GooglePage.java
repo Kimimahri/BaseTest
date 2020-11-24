@@ -13,7 +13,7 @@ public class GooglePage {
     private WebDriver driver;
     private Integer timeout;
 
-    private By inputField = By.id("lst-ib");
+    private By inputField = By.xpath("//input[@name='q']");
 
     /**
      * Конструктор класса
